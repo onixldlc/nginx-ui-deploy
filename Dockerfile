@@ -1,9 +1,10 @@
+FROM onixldlc/nginx-ui:base AS nginx-ui-base
 FROM nginx:alpine3.21 AS runner
-COPY --from=backend-builder /build/nginx-ui /usr/local/bin/nginx-ui
+COPY --from=nginx-ui-base /bin/nginx-ui /usr/local/bin/nginx-ui
 COPY ./nginx_ui-entrypoint.sh /nginx_ui-entrypoint.sh
 
-COPY resources/nginx.conf /usr/local/etc/nginx/nginx.conf
-COPY resources/nginx-ui.conf /usr/local/etc/nginx/conf.d/nginx-ui.conf
+COPY resources/docker/nginx.conf /usr/local/etc/nginx/nginx.conf
+COPY resources/docker/nginx-ui.conf /usr/local/etc/nginx/conf.d/nginx-ui.conf
 
 RUN chmod +x /nginx_ui-entrypoint.sh
 
