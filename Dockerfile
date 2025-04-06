@@ -3,15 +3,15 @@ FROM nginx:alpine3.21 AS runner
 COPY --from=nginx-ui-base /bin/nginx-ui /usr/local/bin/nginx-ui
 COPY ./nginx_ui-entrypoint.sh /nginx_ui-entrypoint.sh
 
-COPY resources/docker/nginx.conf /usr/local/etc/nginx/nginx.conf
-COPY resources/docker/nginx-ui.conf /usr/local/etc/nginx/conf.d/nginx-ui.conf
+COPY resources/nginx.conf /etc/nginx/nginx.conf
+COPY resources/default-sites /sites
 
 RUN chmod +x /nginx_ui-entrypoint.sh
 
-RUN mkdir -p /etc/nginx/sites-enabled
-RUN mkdir -p /etc/nginx/sites-available
-RUN mkdir -p /etc/nginx/streams-enabled
-RUN mkdir -p /etc/nginx/streams-available
+RUN mkdir -p /etc/nginx/sites-enabled && \
+    mkdir -p /etc/nginx/sites-available && \
+    mkdir -p /etc/nginx/streams-enabled && \
+    mkdir -p /etc/nginx/streams-available
 
 RUN cp -r /etc/nginx/ /etc/nginx-default/
 
