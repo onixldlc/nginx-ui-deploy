@@ -1,4 +1,4 @@
-FROM onixldlc/nginx-ui:base AS nginx-ui-base
+FROM ghcr.io/onixldlc/nginx-ui:base AS nginx-ui-base
 FROM nginx:alpine3.21 AS runner
 COPY --from=nginx-ui-base /bin/nginx-ui /usr/local/bin/nginx-ui
 COPY ./nginx_ui-entrypoint.sh /nginx_ui-entrypoint.sh
